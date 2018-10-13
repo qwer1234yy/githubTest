@@ -15,21 +15,9 @@ import logging
 import os
 import argparse
 import webdriverwrapper
-from pyvirtualdisplay import Display
-
 
 
 class DebugBot(object):
-
-    def __init_screen(self):
-        self.display = Display(visible=0, size=(1920, 1080))
-        if not os.getenv('DISPLAY'):
-            self.display.start()
-            logging.info('Started virtual display at %s', os.getenv('DISPLAY'))
-
-    def __close_screen(self):
-        if self.display.is_started:
-            self.display.stop()
 
     def init_driver(self, proxy, user_agent):
         options = webdriverwrapper.ChromeOptions()
@@ -45,13 +33,9 @@ class DebugBot(object):
         return cd
 
     def __init__(self, proxy, user_agent, url):
-        self.__init_screen()
         self.driver = self.init_driver(proxy=proxy, user_agent=user_agent)
         self.driver.get(url)
         print(self.driver.page_source)
-
-    def __del__(self):
-        self.__close_screen()
 
 
 ap = argparse.ArgumentParser()
