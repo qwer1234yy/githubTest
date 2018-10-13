@@ -36,7 +36,7 @@ class DebugBot(object):
         self.driver = self.init_driver(proxy=proxy, user_agent=user_agent)
         self.driver.get(url)
         print(self.driver.page_source)
-
+        self.driver.close()
 
 ap = argparse.ArgumentParser()
 ap.add_argument('-u', '--url', type=str, required=True, help='test url')
